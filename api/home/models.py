@@ -52,6 +52,9 @@ class Member(AbstractBaseUser):
 
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
+
+    home = models.ForeignKey("home.Home", on_delete=models.DO_NOTHING)
+
     email = models.CharField(max_length=255, unique=True, default="test@home-task.com")
     password = models.CharField(max_length=255, default="123qwe")
     phone_number = models.CharField(max_length=255, blank=True, null=True)
@@ -70,4 +73,6 @@ class Home(models.Model):
     name = models.CharField(max_length=250, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True, null=False)
-    admin = models.ForeignKey(Member, on_delete=models.DO_NOTHING)
+    admin = models.ForeignKey(
+        Member, on_delete=models.DO_NOTHING, related_name="home_admin"
+    )
