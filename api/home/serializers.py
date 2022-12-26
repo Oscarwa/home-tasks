@@ -14,3 +14,19 @@ class HomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Home
         fields = ["id", "name", "admin"]
+
+
+class MemberHomeSerializer(serializers.ModelSerializer):
+    home = HomeSerializer()
+
+    class Meta:
+        model = Member
+        fields = [
+            "id",
+            "name",
+            "email",
+            "last_login",
+            "phone_number",
+            "updated_at",
+            "home",
+        ]

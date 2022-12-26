@@ -2,12 +2,12 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 from .models import Member, Home
-from .serializers import MemberSerializer, HomeSerializer
+from .serializers import MemberHomeSerializer, HomeSerializer
 
 # Create your views here.
 class MemberViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
-    serializer_class = MemberSerializer
+    serializer_class = MemberHomeSerializer
 
 
 class HomeViewSet(viewsets.ModelViewSet):
