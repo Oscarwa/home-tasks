@@ -8,6 +8,12 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "email", "last_login", "phone_number", "updated_at"]
 
 
+class MemberLiteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Member
+        fields = ["id", "name"]
+
+
 class HomeSerializer(serializers.ModelSerializer):
     admin = MemberSerializer()
 

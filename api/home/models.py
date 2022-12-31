@@ -1,5 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import (
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+)
 
 
 class MemberManager(BaseUserManager):
@@ -46,14 +50,14 @@ class MemberManager(BaseUserManager):
         return user
 
 
-class Member(AbstractBaseUser):
+class Member(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name"]
 
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
 
-    home = models.ForeignKey("home.Home", on_delete=models.DO_NOTHING)
+    home = models.ForeignKey("home.Home", on_delete=models.CASCADE)
 
     email = models.CharField(max_length=255, unique=True, default="test@home-task.com")
     password = models.CharField(max_length=255, default="123qwe")
@@ -68,6 +72,9 @@ class Member(AbstractBaseUser):
 
     objects = MemberManager()
 
+    def __str__(self):
+        return f"{self.name} - {self.email} @ {self.home}"
+
 
 class Home(models.Model):
     name = models.CharField(max_length=250, null=False)
@@ -76,3 +83,6 @@ class Home(models.Model):
     admin = models.ForeignKey(
         Member, on_delete=models.DO_NOTHING, related_name="home_admin"
     )
+
+    def __str__(self):
+        return self.name

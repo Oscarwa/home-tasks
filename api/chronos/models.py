@@ -8,3 +8,9 @@ class Task(models.Model):
     due_date = models.DateField(default=None)
     completed_at = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        "home.Member", on_delete=models.CASCADE, related_name="created"
+    )
+
+    def __str__(self):
+        return f"{self.name} [{self.home}]"
