@@ -14,3 +14,4 @@ class Grocery(models.Model):
         max_length=20, choices=GroceryLevel.choices, default=GroceryLevel.EMPTY
     )
     updated_at = models.DateTimeField(auto_now=True)
+    home = models.ForeignKey("home.Home", on_delete=models.CASCADE)
