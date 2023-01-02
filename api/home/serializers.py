@@ -15,11 +15,12 @@ class MemberLiteSerializer(serializers.ModelSerializer):
 
 
 class HomeSerializer(serializers.ModelSerializer):
-    admin = MemberSerializer()
+    admin = MemberLiteSerializer()
+    members = MemberLiteSerializer(many=True, source="member_set")
 
     class Meta:
         model = Home
-        fields = ["id", "name", "admin"]
+        fields = ["id", "name", "admin", "members"]
 
 
 class MemberHomeSerializer(serializers.ModelSerializer):
